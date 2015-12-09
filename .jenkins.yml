@@ -1,3 +1,4 @@
 Pom:
+  enableDeployment: true
   mailerRecipients:
     - 'dl-scb-tech-platform@rebuy.de'
