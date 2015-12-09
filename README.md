@@ -8,6 +8,17 @@ Primary responsible person (PRP)
 
 * Björn Häuser, [@bjoernhaeuser](https://github.com/bjoernhaeuser)
 
+Dependency
+----------
+
+```
+<dependency>
+    <groupId>com.rebuy</groupId>
+    <artifactId>consul-java-client</artifactId>
+    <version>1.0.0</version>
+</dependency>
+```
+
 Example
 -------
 
