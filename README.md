@@ -12,12 +12,12 @@ Example
 -------
 
 ```java
-new ConsulClientBuilder()
+ConsulService service = ConsulService.builder()
     .server("my-host")
     .name("my-service")
-    .ident("42")
     .checkInterval("20s")
-    .shutdownHook(true)
     .port(1337)
-    .setup();
+    .build();
+service.register();
+service.unregister();
 ```

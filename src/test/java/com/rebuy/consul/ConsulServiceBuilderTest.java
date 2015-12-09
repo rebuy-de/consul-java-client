@@ -7,18 +7,17 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class ConsulClientBuilderTest
+public class ConsulServiceBuilderTest
 {
-    private ConsulClientBuilder builder;
+    private ConsulServiceBuilder builder;
 
     @Before
     public void before()
     {
-        builder = new ConsulClientBuilder(42)
-            .server("my-host")
+        builder = new ConsulServiceBuilder(42)
+            .agent("my-host")
             .name("my-service")
             .checkInterval("20s")
-            .shutdownHook(true)
             .port(1337)
             .tag("bish")
             .tag("bash")
@@ -28,11 +27,10 @@ public class ConsulClientBuilderTest
     @Test
     public void properties_should_match()
     {
-        assertEquals("my-host", builder.server());
+        assertEquals("my-host", builder.agent());
         assertEquals("my-service", builder.name());
         assertEquals("my-service:42", builder.id());
         assertEquals("20s", builder.checkInterval());
-        assertEquals(true, builder.shutdownHook());
         assertEquals(1337, builder.port());
         assertEquals(3, builder.tags().size());
         assertTrue(builder.tags().contains("bish"));
@@ -65,5 +63,21 @@ public class ConsulClientBuilderTest
     {
         ConsulClient client = builder.buildClient();
         assertNotNull(client);
+    }
+
+    @Test
+    public void build_should_generate_propper_object() {
+        ConsulService service = builder.build();
+        assertNotNull(service);
+        assertNotNull(service.client);
+        assertNotNull(service.service);
+
+        assertEquals("my-service", service.service.getName());
+        assertEquals("my-service:42", service.service.getId());
+        assertEquals(1337, (int)service.service.getPort());
+        assertEquals(3, service.service.getTags().size());
+        assertTrue(service.service.getTags().contains("bish"));
+        assertTrue(service.service.getTags().contains("bash"));
+        assertTrue(service.service.getTags().contains("bosh"));
     }
 }
