@@ -10,7 +10,7 @@ public class ConsulClientBuilder
 {
     private String checkInterval = "10s";
 
-    private String ident = "0";
+    private final long ident;
 
     private String name;
 
@@ -21,6 +21,15 @@ public class ConsulClientBuilder
     private boolean shutdownHook = false;
 
     private List<String> tags = new ArrayList<>();
+
+    public ConsulClientBuilder() {
+        this(System.nanoTime());
+    }
+
+    ConsulClientBuilder(long ident)
+    {
+        this.ident = ident;
+    }
 
     public ConsulClientBuilder checkInterval(String checkInterval)
     {
@@ -35,18 +44,7 @@ public class ConsulClientBuilder
 
     public String id()
     {
-        return String.format("%s:%s", name(), ident());
-    }
-
-    public String ident()
-    {
-        return ident;
-    }
-
-    public ConsulClientBuilder ident(String ident)
-    {
-        this.ident = ident;
-        return this;
+        return String.format("%s:%d", name(), ident);
     }
 
     public String name()
@@ -82,11 +80,13 @@ public class ConsulClientBuilder
         return this;
     }
 
-    public void setup()
+    public ConsulClient setup()
     {
         ConsulClient client = buildClient();
         register(client);
         shutdownHook(client);
+
+        return client;
     }
 
     public boolean shutdownHook()

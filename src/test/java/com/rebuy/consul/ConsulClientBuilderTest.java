@@ -14,10 +14,9 @@ public class ConsulClientBuilderTest
     @Before
     public void before()
     {
-        builder = new ConsulClientBuilder()
+        builder = new ConsulClientBuilder(42)
             .server("my-host")
             .name("my-service")
-            .ident("42")
             .checkInterval("20s")
             .shutdownHook(true)
             .port(1337)
@@ -31,7 +30,6 @@ public class ConsulClientBuilderTest
     {
         assertEquals("my-host", builder.server());
         assertEquals("my-service", builder.name());
-        assertEquals("42", builder.ident());
         assertEquals("my-service:42", builder.id());
         assertEquals("20s", builder.checkInterval());
         assertEquals(true, builder.shutdownHook());
