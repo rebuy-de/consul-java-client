@@ -6,7 +6,7 @@ import com.ecwid.consul.v1.agent.model.NewService;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ConsulClientBuilder
+public class ConsulServiceBuilder
 {
     private String checkInterval = "10s";
 
@@ -16,22 +16,20 @@ public class ConsulClientBuilder
 
     private int port = 80;
 
-    private String server = "localhost";
-
-    private boolean shutdownHook = false;
+    private String agent = "localhost";
 
     private List<String> tags = new ArrayList<>();
 
-    public ConsulClientBuilder() {
+    public ConsulServiceBuilder() {
         this(System.nanoTime());
     }
 
-    ConsulClientBuilder(long ident)
+    ConsulServiceBuilder(long ident)
     {
         this.ident = ident;
     }
 
-    public ConsulClientBuilder checkInterval(String checkInterval)
+    public ConsulServiceBuilder checkInterval(String checkInterval)
     {
         this.checkInterval = checkInterval;
         return this;
@@ -52,7 +50,7 @@ public class ConsulClientBuilder
         return name;
     }
 
-    public ConsulClientBuilder name(String name)
+    public ConsulServiceBuilder name(String name)
     {
         this.name = name;
         return this;
@@ -63,41 +61,25 @@ public class ConsulClientBuilder
         return port;
     }
 
-    public ConsulClientBuilder port(int port)
+    public ConsulServiceBuilder port(int port)
     {
         this.port = port;
         return this;
     }
 
-    public String server()
+    public String agent()
     {
-        return server;
+        return agent;
     }
 
-    public ConsulClientBuilder server(String server)
+    public ConsulServiceBuilder agent(String agent)
     {
-        this.server = server;
+        this.agent = agent;
         return this;
     }
 
-    public ConsulClient setup()
-    {
-        ConsulClient client = buildClient();
-        register(client);
-        shutdownHook(client);
-
-        return client;
-    }
-
-    public boolean shutdownHook()
-    {
-        return shutdownHook;
-    }
-
-    public ConsulClientBuilder shutdownHook(boolean registerShutdownHook)
-    {
-        this.shutdownHook = registerShutdownHook;
-        return this;
+    public ConsulService build() {
+        return new ConsulService(buildClient(), buildService());
     }
 
     public List<String> tags()
@@ -105,7 +87,7 @@ public class ConsulClientBuilder
         return tags;
     }
 
-    public ConsulClientBuilder tag(String tag)
+    public ConsulServiceBuilder tag(String tag)
     {
         tags.add(tag);
         return this;
@@ -124,7 +106,7 @@ public class ConsulClientBuilder
 
     ConsulClient buildClient()
     {
-        return new ConsulClient(server());
+        return new ConsulClient(agent());
     }
 
     NewService buildService()
@@ -136,19 +118,5 @@ public class ConsulClientBuilder
         service.setCheck(buildCheck());
         service.setTags(tags);
         return service;
-    }
-
-    void register(ConsulClient client)
-    {
-        client.agentServiceRegister(buildService());
-    }
-
-    void shutdownHook(ConsulClient client)
-    {
-        if (shutdownHook) {
-            Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-                client.agentServiceDeregister(id());
-            }));
-        }
     }
 }
