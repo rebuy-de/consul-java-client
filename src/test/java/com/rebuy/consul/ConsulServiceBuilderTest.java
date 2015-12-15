@@ -14,7 +14,7 @@ public class ConsulServiceBuilderTest
     @Before
     public void before()
     {
-        builder = new ConsulServiceBuilder(42)
+        builder = new ConsulServiceBuilder()
             .agent("my-host")
             .name("my-service")
             .checkInterval("20s")
@@ -29,7 +29,7 @@ public class ConsulServiceBuilderTest
     {
         assertEquals("my-host", builder.agent());
         assertEquals("my-service", builder.name());
-        assertEquals("my-service:42", builder.id());
+        assertEquals("my-service:1337", builder.id());
         assertEquals("20s", builder.checkInterval());
         assertEquals(1337, builder.port());
         assertEquals(3, builder.tags().size());
@@ -53,7 +53,7 @@ public class ConsulServiceBuilderTest
     {
         NewService service = builder.buildService();
 
-        assertEquals("my-service:42", service.getId());
+        assertEquals("my-service:1337", service.getId());
         assertEquals("my-service", service.getName());
         assertEquals(Integer.valueOf(1337), service.getPort());
     }
@@ -73,7 +73,7 @@ public class ConsulServiceBuilderTest
         assertNotNull(service.service);
 
         assertEquals("my-service", service.service.getName());
-        assertEquals("my-service:42", service.service.getId());
+        assertEquals("my-service:1337", service.service.getId());
         assertEquals(1337, (int)service.service.getPort());
         assertEquals(3, service.service.getTags().size());
         assertTrue(service.service.getTags().contains("bish"));
