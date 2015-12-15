@@ -1,10 +1,9 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.rebuy</groupId>
     <artifactId>consul-java-client</artifactId>
-    <version>1.0.0</version>
+    <version>1.1.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>consul-java-client</name>
@@ -14,12 +13,13 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <mvn.compiler.version>3.1</mvn.compiler.version>
         <mvn.source.version>2.2.1</mvn.source.version>
-        <mvn.release.version>2.4.1</mvn.release.version>
+        <mvn.release.version>2.5.3</mvn.release.version>
 
         <junit.version>4.11</junit.version>
         <consul-api.version>1.1.8</consul-api.version>
         <powermock.version>1.6.3</powermock.version>
         <mockito.version>1.10.19</mockito.version>
+        <slf4j.version>1.7.5</slf4j.version>
     </properties>
 
     <scm>
@@ -58,7 +58,6 @@
                 <artifactId>maven-release-plugin</artifactId>
                 <version>${mvn.release.version}</version>
                 <configuration>
-                    <autoVersionSubmodules>true</autoVersionSubmodules>
                     <tagNameFormat>@{project.artifactId}-@{project.version}</tagNameFormat>
                 </configuration>
             </plugin>
@@ -84,6 +83,11 @@
             <groupId>com.ecwid.consul</groupId>
             <artifactId>consul-api</artifactId>
             <version>${consul-api.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>${slf4j.version}</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>

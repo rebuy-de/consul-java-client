@@ -10,8 +10,6 @@ public class ConsulServiceBuilder
 {
     private String checkInterval = "10s";
 
-    private final long ident;
-
     private String name;
 
     private int port = 80;
@@ -19,15 +17,6 @@ public class ConsulServiceBuilder
     private String agent = "localhost";
 
     private List<String> tags = new ArrayList<>();
-
-    public ConsulServiceBuilder() {
-        this(System.nanoTime());
-    }
-
-    ConsulServiceBuilder(long ident)
-    {
-        this.ident = ident;
-    }
 
     public ConsulServiceBuilder checkInterval(String checkInterval)
     {
@@ -42,7 +31,7 @@ public class ConsulServiceBuilder
 
     public String id()
     {
-        return String.format("%s:%d", name(), ident);
+        return String.format("%s:%d", name(), port);
     }
 
     public String name()
