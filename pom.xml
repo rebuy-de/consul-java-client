@@ -14,7 +14,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <mvn.compiler.version>3.1</mvn.compiler.version>
         <mvn.source.version>2.2.1</mvn.source.version>
-        <mvn.release.version>2.4.1</mvn.release.version>
+        <mvn.release.version>2.5.3</mvn.release.version>
 
         <junit.version>4.11</junit.version>
         <consul-api.version>1.1.8</consul-api.version>
