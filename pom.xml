@@ -3,7 +3,7 @@
 
     <groupId>com.rebuy</groupId>
     <artifactId>consul-java-client</artifactId>
-    <version>1.2.0</version>
+    <version>1.2.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>consul-java-client</name>
@@ -24,7 +24,7 @@
 
     <scm>
         <developerConnection>scm:git:git@github.com:rebuy-de/consul-java-client.git</developerConnection>
-        <tag>consul-java-client-1.2.0</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <build>
