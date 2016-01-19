@@ -6,7 +6,7 @@ Consul client for our Java services.
 Primary responsible person (PRP)
 --------------------------------
 
-* Björn Häuser, [@bjoernhaeuser](https://github.com/bjoernhaeuser)
+* [@prp-consul-java-client](https://github.com/orgs/rebuy-de/teams/prp-consul-java-client)
 
 Dependency
 ----------

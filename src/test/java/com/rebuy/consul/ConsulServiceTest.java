@@ -111,4 +111,37 @@ public class ConsulServiceTest
         assertTrue(foundMatch);
         Mockito.verify(clientMock).getCatalogService(Mockito.eq("service"), Mockito.any(QueryParams.class));
     }
+
+    @Test
+    public void findService_should_return_one_service_with_tag()
+    {
+        List<CatalogService> services = new ArrayList<>();
+        CatalogService service1 = Mockito.mock(CatalogService.class);
+        when(service1.getAddress()).thenReturn("192.168.0.1");
+        when(service1.getServicePort()).thenReturn(8081);
+        services.add(service1);
+
+        CatalogService service2 = Mockito.mock(CatalogService.class);
+        when(service2.getAddress()).thenReturn("192.168.0.2");
+        when(service2.getServicePort()).thenReturn(8082);
+        services.add(service2);
+
+        CatalogService service3 = Mockito.mock(CatalogService.class);
+        when(service3.getAddress()).thenReturn("192.168.0.3");
+        when(service3.getServicePort()).thenReturn(8083);
+        services.add(service3);
+
+        Response<List<CatalogService>> response = new Response<>(services, 1L, true, 1L);
+        when(clientMock.getCatalogService(Mockito.anyString(), Mockito.anyString(), Mockito.any(QueryParams.class))).thenReturn(response);
+
+        Service catalogService = service.getRandomService("service", "my-tag");
+        boolean foundMatch = false;
+        for (CatalogService service : services) {
+            if (service.getAddress() == catalogService.getHostname() && service.getServicePort() == catalogService.getPort()) {
+                foundMatch = true;
+            }
+        }
+        assertTrue(foundMatch);
+        Mockito.verify(clientMock).getCatalogService(Mockito.eq("service"), Mockito.eq("my-tag"), Mockito.any(QueryParams.class));
+    }
 }

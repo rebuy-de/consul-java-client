@@ -59,6 +59,16 @@ public class ConsulService
         return mapService(catalogService);
     }
 
+    public Service getRandomService(String serviceName, String tag)
+    {
+        List<CatalogService> services = fetchServices(serviceName, tag);
+
+        verifyServiceFound(serviceName, services);
+
+        CatalogService catalogService = pickRandomService(services);
+        return mapService(catalogService);
+    }
+
     private Service mapService(CatalogService catalogService)
     {
         return new Service(catalogService.getAddress(), catalogService.getServicePort());
@@ -74,6 +84,11 @@ public class ConsulService
     private List<CatalogService> fetchServices(String serviceName)
     {
         return client.getCatalogService(serviceName, QueryParams.DEFAULT).getValue();
+    }
+
+    private List<CatalogService> fetchServices(String serviceName, String tag)
+    {
+        return client.getCatalogService(serviceName, tag, QueryParams.DEFAULT).getValue();
     }
 
     private CatalogService pickRandomService(List<CatalogService> services)
