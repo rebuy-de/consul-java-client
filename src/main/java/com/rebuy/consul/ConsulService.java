@@ -49,16 +49,36 @@ public class ConsulService
         logger.info("unregistered service in consul: {}", service.toString());
     }
 
-    public CatalogService getRandomService(String serviceName)
+    public Service getRandomService(String serviceName)
     {
-        List<CatalogService> services = client.getCatalogService(serviceName, QueryParams.DEFAULT).getValue();
+        List<CatalogService> services = fetchServices(serviceName);
 
+        verifyServiceFound(serviceName, services);
+
+        CatalogService catalogService = pickRandomService(services);
+        return mapService(catalogService);
+    }
+
+    private Service mapService(CatalogService catalogService)
+    {
+        return new Service(catalogService.getAddress(), catalogService.getServicePort());
+    }
+
+    private void verifyServiceFound(String serviceName, List<CatalogService> services)
+    {
         if (services.size() == 0) {
             throw new NoServiceFoundException(serviceName);
         }
+    }
 
+    private List<CatalogService> fetchServices(String serviceName)
+    {
+        return client.getCatalogService(serviceName, QueryParams.DEFAULT).getValue();
+    }
+
+    private CatalogService pickRandomService(List<CatalogService> services)
+    {
         ThreadLocalRandom random = ThreadLocalRandom.current();
-
         return services.get(random.nextInt(services.size()));
     }
 }
