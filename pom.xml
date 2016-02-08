@@ -16,7 +16,7 @@
         <mvn.release.version>2.5.3</mvn.release.version>
 
         <junit.version>4.11</junit.version>
-        <consul-api.version>1.1.8</consul-api.version>
+        <consul-api.version>1.2.0.REBUY</consul-api.version>
         <powermock.version>1.6.3</powermock.version>
         <mockito.version>1.10.19</mockito.version>
         <slf4j.version>1.7.5</slf4j.version>
