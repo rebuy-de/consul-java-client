@@ -51,10 +51,8 @@ public class ConsulServiceTest
     @Test
     public void unregister_should_invoke_client()
     {
-        when(clientMock.agentServiceRegister(Mockito.any())).thenReturn(null);
-
         service.unregister();
-        Mockito.verify(clientMock).agentServiceDeregister("42");
+        Mockito.verify(clientMock).agentServiceSetMaintenance("42", true);
     }
 
     @Test(expected = NoServiceFoundException.class)

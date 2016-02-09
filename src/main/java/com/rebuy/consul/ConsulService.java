@@ -33,6 +33,7 @@ public class ConsulService
     public void register()
     {
         client.agentServiceRegister(service);
+        client.agentServiceSetMaintenance(service.getId(), false);
         logger.info("registered service in consul: {}", service.toString());
     }
 
@@ -45,7 +46,7 @@ public class ConsulService
 
     public void unregister()
     {
-        client.agentServiceDeregister(service.getId());
+        client.agentServiceSetMaintenance(service.getId(), true);
         logger.info("unregistered service in consul: {}", service.toString());
     }
 
