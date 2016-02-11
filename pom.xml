@@ -15,6 +15,8 @@
         <mvn.source.version>2.2.1</mvn.source.version>
         <mvn.release.version>2.5.3</mvn.release.version>
 
+        <spring-boot.version>1.3.2.RELEASE</spring-boot.version>
+
         <junit.version>4.11</junit.version>
         <consul-api.version>1.2.0.REBUY</consul-api.version>
         <powermock.version>1.6.3</powermock.version>
@@ -88,6 +90,12 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
             <version>${slf4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot</artifactId>
+            <version>${spring-boot.version}</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
