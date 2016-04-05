@@ -5,13 +5,19 @@ Consul client for our Java services.
 
 * minimized bootstrapping amount
 * easy Spring Boot and Spring support
-* only one health check is supported
-* health check is HTTP check of http://localhost:<port>/health
 
 Primary responsible person (PRP)
 --------------------------------
 
 * [@prp-consul-java-client](https://github.com/orgs/rebuy-de/teams/prp-consul-java-client)
+
+FAQ
+---
+
+### How do I configure health checks?
+
+* At the moment only a single health check is supported.
+* The health check is a HTTP check of `http://localhost:<port>/health`.
 
 
 Maven dependency
