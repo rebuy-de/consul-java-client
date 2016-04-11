@@ -37,6 +37,7 @@ public class ConsulService
         logger.info("registered service in consul: {}", service.toString());
     }
 
+    @Deprecated
     public void shutdownHook()
     {
         Runtime.getRuntime().addShutdownHook(
