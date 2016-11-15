@@ -5,6 +5,9 @@ import com.ecwid.consul.v1.agent.model.NewService;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 public class ConsulServiceBuilderTest
@@ -66,7 +69,7 @@ public class ConsulServiceBuilderTest
     }
 
     @Test
-    public void build_should_generate_propper_object() {
+    public void build_should_generate_proper_object() {
         ConsulService service = builder.build();
         assertNotNull(service);
         assertNotNull(service.client);
@@ -79,5 +82,14 @@ public class ConsulServiceBuilderTest
         assertTrue(service.service.getTags().contains("bish"));
         assertTrue(service.service.getTags().contains("bash"));
         assertTrue(service.service.getTags().contains("bosh"));
+    }
+
+    @Test
+    public void builder_should_contain_initial_and_added_tags() {
+        final List<String> tags = Arrays.asList("tag1", "tag2", "tag3");
+
+        builder.tags(tags);
+
+        assertEquals(builder.tags().size(), 6);
     }
 }
