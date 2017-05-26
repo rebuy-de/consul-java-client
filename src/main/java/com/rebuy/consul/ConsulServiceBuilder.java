@@ -71,9 +71,13 @@ public class ConsulServiceBuilder
         return new ConsulService(buildClient(), buildService());
     }
 
-    public List<String> tags()
-    {
+    public List<String> tags() {
         return tags;
+    }
+
+    public void tags(List<String> tags)
+    {
+        this.tags.addAll(tags);
     }
 
     public ConsulServiceBuilder tag(String tag)
