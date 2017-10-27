@@ -10,18 +10,16 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-import org.powermock.api.mockito.PowerMockito;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
-@RunWith(PowerMockRunner.class)
-@PrepareForTest({ConsulService.class, ConsulClient.class, NewService.class})
+@RunWith(MockitoJUnitRunner.class)
 public class ConsulServiceTest
 {
     private ConsulClient clientMock;
@@ -33,8 +31,8 @@ public class ConsulServiceTest
     @Before
     public void before()
     {
-        clientMock = PowerMockito.mock(ConsulClient.class);
-        serviceMock = PowerMockito.mock(NewService.class);
+        clientMock = mock(ConsulClient.class);
+        serviceMock = mock(NewService.class);
         when(serviceMock.getId()).thenReturn("42");
         service = new ConsulService(clientMock, serviceMock);
     }
@@ -69,7 +67,7 @@ public class ConsulServiceTest
     public void findService_should_invoke_client()
     {
         List<CatalogService> services = new ArrayList<>();
-        services.add(Mockito.mock(CatalogService.class));
+        services.add(mock(CatalogService.class));
         Response<List<CatalogService>> response = new Response<>(services, 1L, true, 1L);
         when(clientMock.getCatalogService(Mockito.anyString(), Mockito.any(QueryParams.class))).thenReturn(response);
 
@@ -81,17 +79,17 @@ public class ConsulServiceTest
     public void findService_should_return_one_service()
     {
         List<CatalogService> services = new ArrayList<>();
-        CatalogService service1 = Mockito.mock(CatalogService.class);
+        CatalogService service1 = mock(CatalogService.class);
         when(service1.getAddress()).thenReturn("192.168.0.1");
         when(service1.getServicePort()).thenReturn(8081);
         services.add(service1);
 
-        CatalogService service2 = Mockito.mock(CatalogService.class);
+        CatalogService service2 = mock(CatalogService.class);
         when(service2.getAddress()).thenReturn("192.168.0.2");
         when(service2.getServicePort()).thenReturn(8082);
         services.add(service2);
 
-        CatalogService service3 = Mockito.mock(CatalogService.class);
+        CatalogService service3 = mock(CatalogService.class);
         when(service3.getAddress()).thenReturn("192.168.0.3");
         when(service3.getServicePort()).thenReturn(8083);
         services.add(service3);
@@ -102,7 +100,7 @@ public class ConsulServiceTest
         Service catalogService = service.getRandomService("service");
         boolean foundMatch = false;
         for (CatalogService service : services) {
-            if (service.getAddress() == catalogService.getHostname() && service.getServicePort() == catalogService.getPort()) {
+            if (service.getAddress().equals(catalogService.getHostname()) && service.getServicePort() == catalogService.getPort()) {
                 foundMatch = true;
             }
         }
@@ -114,17 +112,17 @@ public class ConsulServiceTest
     public void findService_should_return_one_service_with_tag()
     {
         List<CatalogService> services = new ArrayList<>();
-        CatalogService service1 = Mockito.mock(CatalogService.class);
+        CatalogService service1 = mock(CatalogService.class);
         when(service1.getAddress()).thenReturn("192.168.0.1");
         when(service1.getServicePort()).thenReturn(8081);
         services.add(service1);
 
-        CatalogService service2 = Mockito.mock(CatalogService.class);
+        CatalogService service2 = mock(CatalogService.class);
         when(service2.getAddress()).thenReturn("192.168.0.2");
         when(service2.getServicePort()).thenReturn(8082);
         services.add(service2);
 
-        CatalogService service3 = Mockito.mock(CatalogService.class);
+        CatalogService service3 = mock(CatalogService.class);
         when(service3.getAddress()).thenReturn("192.168.0.3");
         when(service3.getServicePort()).thenReturn(8083);
         services.add(service3);
