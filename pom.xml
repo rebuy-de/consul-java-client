@@ -4,10 +4,10 @@
     <artifactId>consul-java-client</artifactId>
     <packaging>jar</packaging>
     <name>consul-java-client</name>
-    <version>2.0.�0.M1</version>
+    <version>1.5.1-SNAPSHOT</version>
     <scm>
         <developerConnection>scm:git:git@github.com:rebuy-de/consul-java-client.git</developerConnection>
-        <tag>consul-java-client-2.0.�0.M1</tag>
+        <tag>HEAD</tag>
     </scm>
     <build>
         <finalName>consul-java-client</finalName>
