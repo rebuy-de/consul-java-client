@@ -10,7 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -81,17 +81,14 @@ public class ConsulServiceTest
         List<CatalogService> services = new ArrayList<>();
         CatalogService service1 = mock(CatalogService.class);
         when(service1.getAddress()).thenReturn("192.168.0.1");
-        when(service1.getServicePort()).thenReturn(8081);
         services.add(service1);
 
         CatalogService service2 = mock(CatalogService.class);
         when(service2.getAddress()).thenReturn("192.168.0.2");
-        when(service2.getServicePort()).thenReturn(8082);
         services.add(service2);
 
         CatalogService service3 = mock(CatalogService.class);
         when(service3.getAddress()).thenReturn("192.168.0.3");
-        when(service3.getServicePort()).thenReturn(8083);
         services.add(service3);
 
         Response<List<CatalogService>> response = new Response<>(services, 1L, true, 1L);
@@ -114,17 +111,14 @@ public class ConsulServiceTest
         List<CatalogService> services = new ArrayList<>();
         CatalogService service1 = mock(CatalogService.class);
         when(service1.getAddress()).thenReturn("192.168.0.1");
-        when(service1.getServicePort()).thenReturn(8081);
         services.add(service1);
 
         CatalogService service2 = mock(CatalogService.class);
         when(service2.getAddress()).thenReturn("192.168.0.2");
-        when(service2.getServicePort()).thenReturn(8082);
         services.add(service2);
 
         CatalogService service3 = mock(CatalogService.class);
         when(service3.getAddress()).thenReturn("192.168.0.3");
-        when(service3.getServicePort()).thenReturn(8083);
         services.add(service3);
 
         Response<List<CatalogService>> response = new Response<>(services, 1L, true, 1L);
@@ -133,7 +127,7 @@ public class ConsulServiceTest
         Service catalogService = service.getRandomService("service", "my-tag");
         boolean foundMatch = false;
         for (CatalogService service : services) {
-            if (service.getAddress() == catalogService.getHostname() && service.getServicePort() == catalogService.getPort()) {
+            if (service.getAddress().equals(catalogService.getHostname()) && service.getServicePort() == catalogService.getPort()) {
                 foundMatch = true;
             }
         }

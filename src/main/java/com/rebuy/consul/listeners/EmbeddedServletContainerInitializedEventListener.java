@@ -1,10 +1,10 @@
 package com.rebuy.consul.listeners;
 
 import com.rebuy.consul.ConsulService;
-import org.springframework.boot.context.embedded.EmbeddedServletContainerInitializedEvent;
+import org.springframework.boot.web.servlet.context.ServletWebServerInitializedEvent;
 import org.springframework.context.ApplicationListener;
 
-public class EmbeddedServletContainerInitializedEventListener implements ApplicationListener<EmbeddedServletContainerInitializedEvent>
+public class EmbeddedServletContainerInitializedEventListener implements ApplicationListener<ServletWebServerInitializedEvent>
 {
     private final ConsulService consulService;
 
@@ -14,7 +14,7 @@ public class EmbeddedServletContainerInitializedEventListener implements Applica
     }
 
     @Override
-    public void onApplicationEvent(EmbeddedServletContainerInitializedEvent event)
+    public void onApplicationEvent(ServletWebServerInitializedEvent event)
     {
         consulService.register();
     }
