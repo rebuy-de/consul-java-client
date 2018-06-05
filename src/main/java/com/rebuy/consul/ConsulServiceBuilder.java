@@ -16,6 +16,8 @@ public class ConsulServiceBuilder
 
     private String agent = "localhost";
 
+    private String endpoint = "health";
+
     private List<String> tags = new ArrayList<>();
 
     public ConsulServiceBuilder checkInterval(String checkInterval)
@@ -67,7 +69,19 @@ public class ConsulServiceBuilder
         return this;
     }
 
-    public ConsulService build() {
+    public String endpoint()
+    {
+        return endpoint;
+    }
+
+    public ConsulServiceBuilder endpoint(String endpoint)
+    {
+        this.endpoint = endpoint;
+        return this;
+    }
+
+    public ConsulService build()
+    {
         return new ConsulService(buildClient(), buildService());
     }
 
@@ -87,8 +101,9 @@ public class ConsulServiceBuilder
         NewService.Check check = new NewService.Check();
         check.setInterval(checkInterval());
         check.setHttp(String.format(
-            "http://localhost:%d/health",
-            port
+            "http://localhost:%d/%s",
+            port,
+            endpoint
         ));
         return check;
     }
