@@ -10,6 +10,8 @@ public class ConsulServiceBuilder
 {
     private String checkInterval = "10s";
 
+    private String timeout = "10s";
+
     private String name;
 
     private int port = 80;
@@ -29,6 +31,17 @@ public class ConsulServiceBuilder
     public String checkInterval()
     {
         return checkInterval;
+    }
+
+    public ConsulServiceBuilder timeout(String timeout)
+    {
+        this.timeout = timeout;
+        return this;
+    }
+
+    public String timeout()
+    {
+        return timeout;
     }
 
     public String id()
@@ -99,6 +112,7 @@ public class ConsulServiceBuilder
     NewService.Check buildCheck()
     {
         NewService.Check check = new NewService.Check();
+        check.setTimeout(timeout());
         check.setInterval(checkInterval());
         check.setHttp(String.format(
             "http://localhost:%d/%s",
