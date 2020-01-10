@@ -1,6 +1,9 @@
 consul-java-client
 ==================
 
+### This project is retired and not in active use anymore.
+
+
 Consul client for our Java services.
 
 * Minimized bootstrapping amount.
